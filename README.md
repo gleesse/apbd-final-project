@@ -1,4 +1,6 @@
 # apbd-final-project
+Deadline: end of june</br>
+-----
 Projektowana aplikacja SPA będzie wykorzystywać opisywane w czasie ćwiczeń technologie. Będzie to aplikacja typu SPA (ang. single-page application) wykorzystujące REST API, Blazor i bazę danych.<br />
 Aplikacja będzie nieco podobna do https://finance.yahoo.com<br />
 Np widok dostępny pod poniższym linkiem:<br />

@@ -3,7 +3,6 @@ using StockPortfolio.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace StockPortfolio.Services
@@ -11,6 +10,10 @@ namespace StockPortfolio.Services
     internal class StocksRepository
     {
         private List<Stock> UserStocks { get; set; }
+
+        public delegate void StocksRepositoryDelegate();
+        public event StocksRepositoryDelegate DataChanged;
+
         public List<StockIntervalDetails> GenerateStockIntervals(Stock stock, int intervalInMinutes, DateTime start, DateTime end)
         {
             DateTime minStart = Constants.GetMinDate();
@@ -91,28 +94,28 @@ namespace StockPortfolio.Services
 
         public async Task<Stock> AddStock(Stock stockToAdd)
         {
-            var matchingItem = UserStocks.FirstOrDefault(s => s.Symbol == stockToAdd.Symbol);
-            if (matchingItem != null)
+            var matchingStock = UserStocks.FirstOrDefault(s => s.Symbol == stockToAdd.Symbol);
+            if (matchingStock != null)
             {
-                matchingItem.IsCategorized = true;
+                matchingStock.IsCategorized = true;
             }
-
-            return await Task.FromResult(matchingItem);
+            DataChanged();
+            return await Task.FromResult(matchingStock);
         }
 
-        public async Task<Stock> RemoveStock(Stock stockToRemove)
+        public async Task<Stock> DeleteAsync(Stock stockToDelete)
         {
-            var matchingItem = UserStocks.FirstOrDefault(s => s.Symbol == stockToRemove.Symbol);
-            if (matchingItem != null)
+            var matchingStock = UserStocks.FirstOrDefault(s => s.Symbol == stockToDelete.Symbol); //works faster but doesnt allow to have duplicates
+            if (matchingStock != null)
             {
-                matchingItem.IsCategorized = false;
-                return await Task.FromResult(matchingItem);
+                matchingStock.IsCategorized = false;
+                DataChanged();
+                return await Task.FromResult(matchingStock);
             }
-
-            return await Task.FromResult(matchingItem);
+            return await Task.FromResult(matchingStock);
         }
 
-        public Task<List<Stock>> GetStocks(bool isCategorized)
+        public List<Stock> GetStocks(bool isCategorized)
         {
             if (UserStocks == null)
             {
@@ -121,7 +124,7 @@ namespace StockPortfolio.Services
 
             var categorizedStocks = UserStocks.Where(s => s.IsCategorized == isCategorized).ToList();
 
-            return Task.FromResult(categorizedStocks);
+            return categorizedStocks;
         }
 
         private List<Stock> GetInitialStocks()

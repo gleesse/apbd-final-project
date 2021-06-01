@@ -1,32 +1,35 @@
 ﻿using Microsoft.AspNetCore.Components;
-using StockPortfolio.Services;
-using StockPortfolio.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using StockPortfolio.Dispatchers;
+using StockPortfolio.Models;
+using StockPortfolio.Services;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Telerik.Blazor.Components;
 
 namespace StockPortfolio.Components.Grid
 {
     public partial class StocksGrid
     {
-        [Inject] StocksRepository StocksListService { get; set; }
-        [Parameter] public Stock SelectedStock { get; set; }
-        IEnumerable<Stock> SelectedStocks
-        {
-            get
-            {
-                return StocksListService.GetStocks(true).Result;
-            }
-        }
-        [Parameter] public List<Stock> Data { get; set; }
-
+        [Inject] StocksRepository StocksRepo { get; set; }
         [Inject] private WindowResizeDispatcher WindowDispatcher { get; set; }
+        [Parameter] public int PageSize { get; set; } = 10;
+        private List<Stock> Data { get; set; }
+        private bool MediumBrowserSize { get; set; }
+        private bool LargeBrowserSize { get; set; }
+        private bool SmallBrowserSize { get; set; }
+
+        private async Task DeleteHandler(GridCommandEventArgs args)
+        {
+            var stockToDelete = (Stock)args.Item;
+
+            await StocksRepo.DeleteAsync(stockToDelete);
+            Data.Remove(stockToDelete);
+        }
 
         protected override void OnInitialized()
         {
             WindowResizeDispatcher.WindowResize += RecalculateGridSize;
+            Data = StocksRepo.GetStocks(true);
             RecalculateGridSize();
         }
 
@@ -40,12 +43,8 @@ namespace StockPortfolio.Components.Grid
             var browserDimensions = await WindowDispatcher.GetBrowserWidth();
             LargeBrowserSize = browserDimensions.Width > 1024;
             MediumBrowserSize = browserDimensions.Width > 768;
-            SmallBrowserSize = browserDimensions.Width > 640;
+            SmallBrowserSize = browserDimensions.Width > 400;
             StateHasChanged();
         }
-
-        bool MediumBrowserSize { get; set; }
-        bool LargeBrowserSize { get; set; }
-        bool SmallBrowserSize { get; set; }
     }
 }

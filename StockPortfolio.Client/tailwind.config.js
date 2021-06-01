@@ -10,7 +10,7 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: theme => ({
-        'waves-pattern': "url('./images/waves2.svg')",
+        'waves-pattern': "url('./images/header-bg.svg')",
        }),
        boxShadow: {
          'hover': '0px 10px 35px 2px rgba(0, 0, 0, 0.2);'

@@ -3,30 +3,42 @@
 
 
 <div class="row stocks-grid">
-    <TelerikGrid Data="@Data" Sortable="true" SelectionMode="GridSelectionMode.Single" SelectedItems="@SelectedStocks">
+    <TelerikGrid Data="@Data" Sortable="true" SelectionMode="GridSelectionMode.Single" Pageable="true" PageSize="@PageSize">
         <GridColumns>
-            <GridCheckboxColumn SelectAll="false" Width="20px" />
-            <GridColumn Field="Symbol" Title="Symbol" />
-            <GridColumn Field="Price" Title="Price">
+            <GridCommandColumn Width="55px">
+                <GridCommandButton Command="Delete" Icon="delete" Primary="true" OnClick="@DeleteHandler" />
+            </GridCommandColumn>
+
+            <GridColumn Field="@nameof(Stock.Symbol)" Title="Symbol" />
+            <GridColumn Field="@nameof(Stock.Price)" Title="Price">
                 <Template>
                     @{ var stock = context as Stock;
-                        <strong>@("$"+stock.Price)</strong> }
-                </Template>
-            </GridColumn>
-            <GridColumn Field="ChangePercentage" Title="Change Percentage">
-                <Template>
-                    @{
-                    var stock = context as Stock;
-                    <span class="@(stock.ChangePercentage>0? "text-green-400" : "text-red-400")">@(stock.ChangePercentage)%</span>
+                        <strong>@("$"+stock.Price)</strong>
                     }
                 </Template>
             </GridColumn>
+
+            @if (SmallBrowserSize)
+            {
+                <GridColumn Field="@nameof(Stock.ChangePercentage)" Title="Change Percentage">
+                    <Template>
+                        @{
+                            var stock = context as Stock;
+                            var changePercentage = stock.ChangePercentage;
+                            string textColor = changePercentage > 0 ? "text-green-400" : "text-red-400";
+                            <span class="@textColor">@changePercentage%</span>
+                        }
+                    </Template>
+                </GridColumn>
+            }
+
             @if (MediumBrowserSize)
-            { 
-                <GridColumn Field="MarketCap" Title="Market Cap">
+            {
+                <GridColumn Field="@nameof(Stock.MarketCap)" Title="Market Cap">
                     <Template>
                         @{ var stock = context as Stock;
-                            <span>@DecimalFormatter.FormatDecimal(stock.MarketCap)</span>
+                            string formattedDecimal = DecimalFormatter.FormatDecimal(stock.MarketCap);
+                            <span>@formattedDecimal</span>
                         }
                     </Template>
                 </GridColumn>
@@ -34,24 +46,16 @@
 
             @if (LargeBrowserSize)
             {
-               <GridColumn Field="PricePerEarningRatio" Title="PE Ratio">
-                <Template>
-                    @{ var stock = context as Stock;
-                        <span>
-                            @(stock.PricePerEarningRatio != null
-                ? DecimalFormatter.FormatDecimal(stock.PricePerEarningRatio.Value)
-                : null)
-                        </span> }
-                </Template>
-                </GridColumn>
-                <GridColumn Title="Last Day Chart">
+                <GridColumn Field="@nameof(Stock.PricePerEarningRatio)" Title="PE Ratio">
                     <Template>
-                       @* <SparklineChart StockData="@( context as Stock )" />*@
+                        @{ var stock = context as Stock;
+                            var peRatio = stock.PricePerEarningRatio;
+                            string textColor = peRatio > 40 ? "text-green-400" : "text-yellow-400";
+                            <span class="@textColor">@peRatio</span>
+                        }
                     </Template>
-                </GridColumn> 
+                </GridColumn>
             }
-            
-            
         </GridColumns>
     </TelerikGrid>
 </div>

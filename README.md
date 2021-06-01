@@ -1,10 +1,30 @@
 # apbd-final-project
-Deadline: end of june</br>
+## Deadline: end of june</br>
+- ### UI
+  #### main layout
+    - [x] header
+    - [x] footer 
+  #### Components
+    - [x] pie chart
+    - [x] main chart 
+    - [x] stocks grid (portfolio)
+  #### Pages
+    - [x] sign in page
+    - [x] sign up page
+    - [x] reset password page
+    - [x] dashboard page
+    - [ ] market page
+    - [ ] settings page
+    - [ ] profile page
+    - [ ] loading page
+
+- ### back-end
+  to be...
 -----
-Projektowana aplikacja SPA będzie wykorzystywać opisywane w czasie ćwiczeń technologie. Będzie to aplikacja typu SPA (ang. single-page application) wykorzystujące REST API, Blazor i bazę danych.<br />
-Aplikacja będzie nieco podobna do https://finance.yahoo.com<br />
-Np widok dostępny pod poniższym linkiem:<br />
-https://finance.yahoo.com/quote/TSLA?p=TSLA&.tsrc=fin-srch<br />
+#### Projektowana aplikacja SPA będzie wykorzystywać opisywane w czasie ćwiczeń technologie. Będzie to aplikacja typu SPA (ang. single-page application) wykorzystujące REST API, Blazor i bazę danych.
+#### Aplikacja będzie nieco podobna do https://finance.yahoo.com
+#### Np widok dostępny pod poniższym linkiem:
+#### https://finance.yahoo.com/quote/TSLA?p=TSLA&.tsrc=fin-srch
 -----
 <b>Architektura aplikacji zaprezentowana jest poniżej.</b><br />
 * Blazor application – aplikacja napisana z pomocą Blazer będzie reprezentować interfejs naszej aplikacji (tzw. „frontend”).<br />

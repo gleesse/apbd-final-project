@@ -1,0 +1,53 @@
+﻿@using StockPortfolio.Models
+
+<div class="bg-blue-100 border-b border-light-secondary-300 text-light-secondary-400 px-4 py-3">
+    <div class="flex flex-col justify-between items-center md:items-end gap-4 py-4 md:flex-row">
+    <div class="hidden lg:flex flex-col text-sm font-roboto">
+        <TelerikDateRangePicker StartValue="@Start" EndValue="@End" Min="@MinDate" Max="@MaxDate"
+                                StartValueChanged="@( (DateTime sV) => StartValueChangedHandler(sV) )"
+                                EndValueChanged="@( (DateTime eV) => EndValueChangedHandler(eV) )"/>
+    </div> @*date*@
+
+
+    <ul class="flex flex-row justify-center text-lg font-roboto">
+        @foreach (TimeFilter filter in TimeFilters)
+        {
+            <li class="mx-1.5">
+                <span class="list-item cursor-pointer @(ActiveTimeFilterDuration == filter.Duration ? "font-bold border-b-2 border-light-secondary-400" : "")"
+                      @onclick="@( () => OnTimeFilterClick(filter.Duration) )">
+                    @filter.Name
+                </span>
+            </li>
+        }
+    </ul> @*interval*@
+
+    <div class="flex flex-row text-center mx-auto md:mx-0">
+
+        <TelerikDropDownList Data="@IntervalFilters" TextField="Name" ValueField="Duration"
+                             TItem="IntervalFilter" TValue="long" Value="SelectedFilterInterval"
+                             ValueChanged="@( (long v) => OnIntervalChange(v) )"
+                             Width="140px" PopupWidth="135px" PopupHeight="auto">
+            <ValueTemplate>
+                <span class=""> Interval: @( (context as IntervalFilter).Name)</span>
+            </ValueTemplate>
+        </TelerikDropDownList>
+
+        <TelerikDropDownList @bind-Value="@MainChartType" Data="@AvailableChartTypes" Width="140px" PopupWidth="140px" PopupHeight="auto">
+            <ValueTemplate>
+                @{
+                    <span class="flex flex-row gap-2 m-auto">
+                        <img src="@( $"css/images/{context.Text.ToLowerInvariant()}.png" )" />
+                        @context.Text.Substring(0, Math.Min(context.Text.Length, 6))
+                    </span> }
+            </ValueTemplate>
+            <ItemTemplate>
+                @{
+                    <span class="flex flex-row gap-2">
+                        <img src="@( $"css/images/{context.Text.ToLowerInvariant()}.png" )" />
+                        @context.Text.Substring(0, Math.Min(context.Text.Length, 6))
+                    </span> }
+            </ItemTemplate>
+        </TelerikDropDownList>
+    </div> @*chart type*@
+    </div>
+</div>

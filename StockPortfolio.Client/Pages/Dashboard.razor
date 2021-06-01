@@ -1,0 +1,23 @@
+@page "/dashboard"
+@using StockPortfolio.Components.Charts; 
+@using StockPortfolio.Components.Grid; 
+@using StockPortfolio.Components; 
+
+<style scoped>
+    .pie-chart{
+        min-width: 400px;
+    }
+</style>
+
+<PageTitle Title="Dashboard" />
+
+<div class="w-full bg-light-background">
+    <div class="my-2 mx-4 md:mx-12 bg-white flex flex-col lg:flex-row justify-evenly">
+        <div class="lg:w-1/3">
+            <PieChart/>
+        </div>
+        <div class="lg:w-2/3">
+            <StocksGrid/>
+        </div>
+    </div>
+</div>

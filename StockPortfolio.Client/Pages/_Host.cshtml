@@ -1,0 +1,29 @@
+﻿@page "/"
+@namespace StockPortfolio.Pages
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <script src="_content/Telerik.UI.for.Blazor.Trial/js/telerik-blazor.js" defer></script>
+    <link rel="stylesheet" href="_content/Telerik.UI.for.Blazor.Trial/css/kendo-theme-default/all.css" />
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StockPortfolio</title>
+    <base href="~/" />
+    <link href="css/app.min.css" rel="stylesheet" />
+</head>
+<body>
+    <component type="typeof(App)" render-mode="ServerPrerendered" />
+    <script src="_framework/blazor.server.js"></script>
+    <script src="~/scripts/setTitle.js"></script>
+    <script src="~/scripts/windowResizeHandler.js"></script>
+    <script src="~/scripts/getDimensions.js"></script>
+    
+</body>
+</html>

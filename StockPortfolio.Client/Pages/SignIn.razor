@@ -1,0 +1,14 @@
+@page "/signin"
+@layout AuthenticationLayout
+<PageTitle Title="My Stocks - Sign In"/>
+
+<div>
+    <p class="pt-10 text-light-secondary-300 font-ubuntu font-bold text-2xl" align="center">Sign in</p>
+    <form class="pt-10">
+      <input class="input" type="text" align="center" placeholder="Username">
+      <input class="input" type="password" align="center" placeholder="Password">
+      <a class="submit" align="center">Sign in</a>
+      <p class="flex justify-center pt-1.5 text-base"><a class="text-light-secondary-400 sup-button" href="/reset">Forgot Password?</a></p> @* padding overlap workaround *@
+      <p class="flex justify-center pt-6 text-base"><a class="text-light-tint sup-button pb-5" href="/signup">Create an account</a></p>
+    </form>
+</div>

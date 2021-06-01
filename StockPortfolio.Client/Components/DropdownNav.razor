@@ -1,0 +1,27 @@
+@inject DropdownNavStateContainer DropdownNavState
+
+@if(DropdownNavState.IsOpened){
+    <div class="flex justify-center fixed top-0 bottom-0 left-0 right-0 z-40 bg-black bg-opacity-95" @onclick="HideDropdownNav">
+           <div class="grid grid-flow-row gap-16 text-light-secondary-100 text-3xl font-roboto font-bold my-auto mx-auto text-center">
+            <NavLink href="/dashboard">Dashboard</NavLink>
+            <NavLink href="/market">Market</NavLink> 
+            <NavLink href="/settings">Settings</NavLink>
+        </div>   
+    </div>
+}
+
+@code{
+    public void HideDropdownNav(){
+        DropdownNavState.SetVisible(false);
+    }
+
+    protected override void OnInitialized()
+    {
+        DropdownNavState.OnChange += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        DropdownNavState.OnChange -= StateHasChanged;
+    }
+}

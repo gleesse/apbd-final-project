@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>e2ac1960-fa1b-4e0f-8955-5de264110b40</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>StockPortfolio.Shared</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\Constants.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\DecimalFormatter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\ChartType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Interval.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\IntervalFilter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Stock.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\StockIntervalDetails.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\TimeFilter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\StocksRepository.cs" />
+  </ItemGroup>
+</Project>

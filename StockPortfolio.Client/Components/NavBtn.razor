@@ -1,0 +1,11 @@
+
+<NavLink href="@Href" class="cursor-default" ActiveClass="text-light-secondary-500 border-b-4 border-light-secondary-500 pb-3">
+    <div class="cursor-pointer inline-flex gap-1 items-center hover:text-light-secondary-400 transition-all duration-300 ease-in-out text-3xl">
+        @ChildContent
+    </div>
+</NavLink>
+
+@code{
+    [Parameter] public string Href {get;set;}
+    [Parameter] public RenderFragment ChildContent{get;set;}
+}

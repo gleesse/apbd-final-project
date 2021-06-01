@@ -1,0 +1,58 @@
+@inherits LayoutComponentBase
+
+<style>   
+    .input {
+    width: 75%;
+    color: rgb(40, 50, 55);
+    background: rgba(135, 125, 125, 0.05);
+    margin: 0px 45px 25px;
+    padding: 10px 20px;
+    border: none;
+    outline: none;
+    border-radius: 20px;
+    box-sizing: border-box;
+    border: 2px solid rgba(0, 0, 0, 0.03);
+    text-align: center;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 1px;
+    }
+  
+    .input:focus {
+        border: 2px solid rgba(0, 170, 180, 0.2);
+    }
+    
+    .submit {
+      cursor: pointer;
+        display: flex;
+        justify-content: center;
+        padding: 10px 0;
+        margin: 0 32%;
+        border: 0;
+        border-radius: 5em;
+        color: #fff;
+        background: linear-gradient(to right, #006F75, #00adb5);
+        box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.05);
+        font-family: 'Ubuntu', sans-serif;
+        font-size: 15px;
+    }
+
+    .submit:hover{
+        background: linear-gradient(to right, #00575C, #006F75);
+    }
+   
+    a {
+        text-shadow: 0px 0px 3px rgba(117, 117, 117, 0.12);
+    }
+
+    a.sup-button:hover{
+        transition-duration: 300ms;
+        filter: brightness(0.80);
+    }
+</style>
+
+<div class="main">
+    <div class="bg-light-background bg-opacity-10 w-96 h-auto mx-auto my-32 rounded-3xl shadow-hover">
+        @Body
+    </div>
+</div>

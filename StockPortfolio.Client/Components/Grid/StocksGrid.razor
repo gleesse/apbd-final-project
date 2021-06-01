@@ -1,0 +1,57 @@
+﻿@using StockPortfolio.Helpers 
+@using StockPortfolio.Models 
+
+
+<div class="row stocks-grid">
+    <TelerikGrid Data="@Data" Sortable="true" SelectionMode="GridSelectionMode.Single" SelectedItems="@SelectedStocks">
+        <GridColumns>
+            <GridCheckboxColumn SelectAll="false" Width="20px" />
+            <GridColumn Field="Symbol" Title="Symbol" />
+            <GridColumn Field="Price" Title="Price">
+                <Template>
+                    @{ var stock = context as Stock;
+                        <strong>@("$"+stock.Price)</strong> }
+                </Template>
+            </GridColumn>
+            <GridColumn Field="ChangePercentage" Title="Change Percentage">
+                <Template>
+                    @{
+                    var stock = context as Stock;
+                    <span class="@(stock.ChangePercentage>0? "text-green-400" : "text-red-400")">@(stock.ChangePercentage)%</span>
+                    }
+                </Template>
+            </GridColumn>
+            @if (MediumBrowserSize)
+            { 
+                <GridColumn Field="MarketCap" Title="Market Cap">
+                    <Template>
+                        @{ var stock = context as Stock;
+                            <span>@DecimalFormatter.FormatDecimal(stock.MarketCap)</span>
+                        }
+                    </Template>
+                </GridColumn>
+            }
+
+            @if (LargeBrowserSize)
+            {
+               <GridColumn Field="PricePerEarningRatio" Title="PE Ratio">
+                <Template>
+                    @{ var stock = context as Stock;
+                        <span>
+                            @(stock.PricePerEarningRatio != null
+                ? DecimalFormatter.FormatDecimal(stock.PricePerEarningRatio.Value)
+                : null)
+                        </span> }
+                </Template>
+                </GridColumn>
+                <GridColumn Title="Last Day Chart">
+                    <Template>
+                       @* <SparklineChart StockData="@( context as Stock )" />*@
+                    </Template>
+                </GridColumn> 
+            }
+            
+            
+        </GridColumns>
+    </TelerikGrid>
+</div>

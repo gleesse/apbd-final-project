@@ -1,0 +1,48 @@
+@using StockPortfolio.Models
+@using StockPortfolio.Dispatchers
+@inject WindowResizeDispatcher WindowResizeDispatcher;
+
+<div>
+    <TelerikChart @ref="@ChartRef">
+        <ChartSeriesItems>
+            <ChartSeries Type="ChartSeriesType.Pie" Data="@Stocks"
+                         Field="@nameof(Stock.Price)" CategoryField="@nameof(Stock.Symbol)">
+                <ChartSeriesLabels Template="@( $"#=category#\n$#=value#" )" Visible="@ChartLabelsVisible" />
+            </ChartSeries>
+        </ChartSeriesItems>
+        <ChartLegend Position="ChartLegendPosition.Bottom">
+        </ChartLegend>
+    </TelerikChart>
+</div>
+
+
+@code{
+    public TelerikChart ChartRef;
+    public bool ChartLabelsVisible = false;
+    public List<Stock> Stocks = new List<Stock>()
+    {
+        new Stock{
+            Price = 0.1m,
+            Symbol = "APPL"
+        },
+        new Stock{
+            Price = 0.25m,
+            Symbol = "TSL"
+        }
+    };
+
+    protected override void OnInitialized()
+    {
+        WindowResizeDispatcher.WindowResize += ResizeChart;
+    }
+
+    public void Dispose()
+    {
+        WindowResizeDispatcher.WindowResize -= ResizeChart;
+    }
+
+    protected async Task ResizeChart()
+    {
+        ChartRef.Refresh();
+    }
+}

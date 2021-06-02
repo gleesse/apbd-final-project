@@ -1,6 +1,6 @@
 # apbd-final-project
 ## Deadline: end of june</br>
-- ### UI
+- ### UI - 'front' branch
   #### main layout
     - [x] header
     - [x] footer 
@@ -18,7 +18,7 @@
     - [ ] profile page
     - [ ] loading page
 
-- ### back-end
+- ### API - 'back-end' branch
   to be...
 -----
 #### Projektowana aplikacja SPA będzie wykorzystywać opisywane w czasie ćwiczeń technologie. Będzie to aplikacja typu SPA (ang. single-page application) wykorzystujące REST API, Blazor i bazę danych.

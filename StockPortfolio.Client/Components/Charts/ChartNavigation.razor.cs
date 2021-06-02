@@ -2,159 +2,76 @@ using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Telerik.Blazor;
 using StockPortfolio.Models;
-using StockPortfolio.Services;
 using StockPortfolio.Helpers;
 
 namespace StockPortfolio.Components.Charts
 {
     public partial class ChartNavigation
     {
-        [Inject] internal StocksRepository StocksRepository { get; set; } //from startup
-        [Parameter] public Stock SelectedStock { get; set; }
-
-        public DateTime MinDate { get; set; } = Constants.GetMinDate();
-        public DateTime MaxDate { get; set; } = Constants.GetMaxDate();
-
-        //parameters
-        List<StockIntervalDetails> CurrentChartData { get; set; }
-        DateTime Start { get; set; }
-        DateTime End { get; set; } = DateTime.Now;
-        public IntervalFilter SelectedInterval { get; set; }
-        ChartSeriesType MainChartType { get; set; } = ChartSeriesType.Candlestick;
-        long? ActiveTimeFilterDuration { get; set; }
-        long SelectedFilterInterval { get; set; }
+        [Parameter] public StockChartSeriesType ChartType { get; set; }
+        [Parameter] public EventCallback<StockChartSeriesType> ChartTypeChanged { get; set; }
+        [Parameter] public IntervalFilter ActiveIntervalFilter { get; set; }
+        [Parameter] public EventCallback<IntervalFilter> ActiveIntervalFilterChanged { get; set; }
+        [Parameter] public TimeFilter ActiveTimeFilter { get; set; }
+        [Parameter] public EventCallback<TimeFilter> ActiveTimeFilterChanged { get; set; }
 
         //data sources
-        List<ChartType> AvailableChartTypes { get; set; } = ChartType.GetAvailableChartTypes();
-        List<TimeFilter> TimeFilters { get; set; } = TimeFilter.GetFilters();
-        public List<IntervalFilter> IntervalFilters { get; set; } = IntervalFilter.GetIntervalFilters();
+        private List<ChartType> AvailableChartTypes { get; set; } = Models.ChartType.GetAvailableChartTypes();
+        private List<TimeFilter> TimeFilters { get; set; } = TimeFilter.GetFilters();
+        private List<IntervalFilter> IntervalFilters { get; set; } = IntervalFilter.GetFilters();
 
-        IDictionary<long, long> TimeFilterDefaultIntervalsMapping { get; set; } =
-            new Dictionary<long, long>
-            {
-            {Constants.MS_1_HOUR, Constants.MS_5_MINUTES },
-            {Constants.MS_4_HOURS, Constants.MS_15_MINUTES },
-            {Constants.MS_12_HOURS, Constants.MS_30_MINUTES },
-            {Constants.MS_1_DAY, Constants.MS_30_MINUTES },
-            {Constants.MS_4_DAYS, Constants.MS_1_HOUR },
-            {Constants.MS_1_WEEK, Constants.MS_4_HOURS },
-            };
+        private DateTime MinDate { get; set; } = Constants.GetMinDate();
+        private DateTime MaxDate { get; set; } = Constants.GetMaxDate();
+
+        private DateTime StartDate { get; set; }
+        private DateTime EndDate { get; set; } = DateTime.Now;
 
         protected override void OnInitialized()
         {
-            SelectedInterval = IntervalFilter.GetIntervalFilters()[3];
-            SelectedFilterInterval = IntervalFilter.GetIntervalFilters()[3].Duration;
-            ActiveTimeFilterDuration = TimeFilter.GetFilters()[4].Duration;
+            ActiveTimeFilter = TimeFilters.First();
+            ActiveTimeFilterChanged.InvokeAsync(ActiveTimeFilter);
+            StartDate = EndDate.AddHours(-ActiveTimeFilter.DurationInHours);
+            FilterIntervals(ActiveTimeFilter.DurationInHours * 60);
 
-            Start = End.AddDays(-4);
-            FilterIntervals(ActiveTimeFilterDuration.Value);
-
-            TimeFilters.Add(new TimeFilter() { Name = "MAX", Duration = (long)(MaxDate - MinDate).TotalMilliseconds });
-
-            base.OnInitialized();
-        }
-
-        protected override void OnParametersSet()
-        {
-            FilterCurrentChartData(SelectedFilterInterval);
-
-            base.OnParametersSet();
-        }
-
-        async Task StartValueChangedHandler(DateTime currStart)
-        {
-            Start = currStart;
-            if(End < Start)
-            {
-                End = Start;
-            }
-            DatesChanged();
-        }
-
-        async Task EndValueChangedHandler(DateTime currEnd)
-        {
-            End = currEnd;
-
-            if (currEnd != default(DateTime))
-            {
-                End = currEnd;
-            }
-            else
-            {
-                End = Start;
-            }
-            DatesChanged();
+            TimeFilters.Add(new TimeFilter() { Name = "MAX", DurationInHours = (int)(MaxDate - MinDate).TotalHours });
         }
 
         void DatesChanged()
         {
-            var dateRangeIntervalInMs = (long)(End - Start).TotalMilliseconds;
+            if (StartDate.Equals(EndDate)) StartDate = StartDate.AddDays(-1);
+            var datesInterval = (int)(EndDate - StartDate).TotalMinutes;
 
-            ActiveTimeFilterDuration = null;
+            ActiveTimeFilter = new TimeFilter { StartDate = StartDate, DurationInHours = datesInterval / 60};
+            ActiveTimeFilterChanged.InvokeAsync(ActiveTimeFilter);
 
-            FilterIntervals(dateRangeIntervalInMs);
-            SetDefaultInterval(dateRangeIntervalInMs);
-
-            FilterCurrentChartData(SelectedFilterInterval);
+            FilterIntervals(datesInterval);
         }
 
-        void OnTimeFilterClick(long FilterDuration)
+        void OnTimeFilterClick(TimeFilter selectedFilter)
         {
-            if (this.ActiveTimeFilterDuration == FilterDuration)
-            {
-                return;
-            }
+            if (ActiveTimeFilter == selectedFilter) return;
+            ActiveTimeFilter = selectedFilter;
+            ActiveTimeFilter.StartDate = DateTime.Now.AddHours(-ActiveTimeFilter.DurationInHours);
+            ActiveTimeFilterChanged.InvokeAsync(ActiveTimeFilter);
+            EndDate = MaxDate;
+            StartDate = EndDate.AddHours(-selectedFilter.DurationInHours);
 
-            ActiveTimeFilterDuration = FilterDuration;
-
-            End = MaxDate;
-            Start = End.AddMilliseconds(-ActiveTimeFilterDuration.Value);
-
-            FilterIntervals(FilterDuration);
-            SetDefaultInterval(FilterDuration);
-
-            FilterCurrentChartData(SelectedFilterInterval);
+            FilterIntervals(selectedFilter.DurationInHours * 60);
         }
 
-        void FilterCurrentChartData(long intervalInMilliseconds)
+        void OnIntervalFilterClick(string selectedFilterName)
         {
-            var intervalInMinutes = intervalInMilliseconds / (1000 * 60);
-
-            if (SelectedStock != null)
-            {
-                CurrentChartData = StocksRepository.GenerateStockIntervals(SelectedStock, (int)intervalInMinutes, Start, End);
-            }
-            else
-            {
-                CurrentChartData = null;
-            }
+            ActiveIntervalFilter = IntervalFilter.GetFilters().First(f => f.Name == selectedFilterName);
+            ActiveIntervalFilterChanged.InvokeAsync(ActiveIntervalFilter);
         }
 
-        void OnIntervalChange(long IntervalDuration)
+        void FilterIntervals(int durationInMinutes)
         {
-            SelectedInterval = IntervalFilter.GetIntervalFilters().Where(i => i.Duration == IntervalDuration).FirstOrDefault();
-            SelectedFilterInterval = IntervalDuration;
-
-            FilterCurrentChartData(IntervalDuration);
-        }
-
-        void FilterIntervals(long filterDuration)
-        {
-            IntervalFilters = IntervalFilter.GetIntervalFilters().Where(i => i.Duration < filterDuration && filterDuration / i.Duration < 200).ToList();
-        }
-
-        void SetDefaultInterval(long filterDuration)
-        {
-            if (!IntervalFilters.Any(i => i.Duration == SelectedFilterInterval))
-            {
-                SelectedFilterInterval = TimeFilterDefaultIntervalsMapping.ContainsKey(filterDuration)
-                    ? TimeFilterDefaultIntervalsMapping[filterDuration]
-                    : Constants.MS_1_DAY;
-                SelectedInterval = IntervalFilters.Where(i => i.Duration == SelectedFilterInterval).FirstOrDefault();
-            }
+            IntervalFilters = IntervalFilter.GetFilters().Where(i => i.DurationInMinutes < durationInMinutes && durationInMinutes / i.DurationInMinutes <= 24).ToList();
+            ActiveIntervalFilter = IntervalFilters.First();
+            ActiveIntervalFilterChanged.InvokeAsync(ActiveIntervalFilter);
         }
     }
 }

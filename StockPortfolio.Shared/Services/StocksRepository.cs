@@ -33,7 +33,6 @@ namespace StockPortfolio.Services
                 {
                     Open = stock.Price - 0.1m,
                     Close = stock.Price,
-                    ColumnColor = "#5CB85C",
                     Date = start,
                     High = stock.Price + 1.1m,
                     Low = stock.Price - 2.2m,
@@ -73,7 +72,6 @@ namespace StockPortfolio.Services
                     Volume = newPrice * randomVolume
                 };
 
-                stockToAdd.ColumnColor = stockToAdd.Volume >= prevInterval.Volume ? "#5CB85C" : "#FF6358";
                 stocks.Add(stockToAdd);
 
                 counter++;

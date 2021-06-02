@@ -1090,6 +1090,10 @@ video {
   margin-top: 0px;
 }
 
+.ml-0{
+  margin-left: 0px;
+}
+
 .mr-1{
   margin-right: 0.25rem;
 }
@@ -1336,10 +1340,6 @@ video {
 
 .resize-none{
   resize: none;
-}
-
-.resize{
-  resize: both;
 }
 
 *{

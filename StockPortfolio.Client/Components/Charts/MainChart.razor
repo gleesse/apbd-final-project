@@ -1,67 +1,42 @@
 ﻿@using StockPortfolio.Dispatchers;
-@inject WindowResizeDispatcher WindowResizeDispatcher;
-
-
-
+@using StockPortfolio.Models;
 
 <div>
-    <TelerikChart @ref="@ChartRef">
-        <ChartSeriesItems>
-            <ChartSeries Type="ChartSeriesType.Line" Name="Product 1 (bound to simple data)" Data="@simpleData">
-            </ChartSeries>
-            <ChartSeries Type="ChartSeriesType.Line" Name="Product 2 (bound to model)" Data="@modelData" Field="@nameof(MyDataModel.SecondSeriesValue)">
-                <ChartSeriesLabels Template="#=value# in #=dataItem.ExtraData# quarter" Visible="true"></ChartSeriesLabels>
-            </ChartSeries>
-        </ChartSeriesItems>
+    <TelerikStockChart @ref="@StockChartRef" DateField="@(nameof(StockIntervalDetails.Date))">
+        <StockChartSeriesItems>
+            <StockChartSeries Type="@ChartType" Data="@ChartData"
+                              OpenField="@(nameof(StockIntervalDetails.Open))"
+                              HighField="@(nameof(StockIntervalDetails.High))"
+                              LowField="@(nameof(StockIntervalDetails.Low))"
+                              CloseField="@(nameof(StockIntervalDetails.Close))"
+                              Color="#39a6a3"
+                              DownColor="#cf0000">
 
-        <ChartValueAxes>
-            <ChartValueAxis Color="red"></ChartValueAxis>
-        </ChartValueAxes>
-
-        <ChartCategoryAxes>
-            <ChartCategoryAxis Categories="@xAxisItems"></ChartCategoryAxis>
-        </ChartCategoryAxes>
-
-        <ChartTitle Text="Quarterly sales trend"></ChartTitle>
-
-        <ChartLegend Position="Telerik.Blazor.ChartLegendPosition.Bottom">
-        </ChartLegend>
-    </TelerikChart>
+            </StockChartSeries>
+        </StockChartSeriesItems>
+    
+        <StockChartCategoryAxes>
+            <StockChartCategoryAxis Type="@ChartCategoryAxisType.Date"
+                                    BaseUnit="@IntervalFilter.Interval.Unit"
+                                    BaseUnitStep="@IntervalFilter.Interval.Step">
+                <StockChartCategoryAxisCrosshair Visible="true">
+                    <StockChartCategoryAxisCrosshairTooltip Visible="true" />
+                </StockChartCategoryAxisCrosshair>
+                <StockChartCategoryAxisLabels>
+                    <StockChartCategoryAxisLabels Step="@ChartLabelStep" />
+                </StockChartCategoryAxisLabels>
+                <StockChartCategoryAxisMajorGridLines Visible="true" />
+            </StockChartCategoryAxis>
+        </StockChartCategoryAxes>
+    
+        <StockChartValueAxes>
+            <StockChartValueAxis>
+                <StockChartValueAxisCrosshair Visible="true">
+                    <StockChartValueAxisCrosshairTooltip Visible="true" />
+                </StockChartValueAxisCrosshair>
+            </StockChartValueAxis>
+        </StockChartValueAxes>
+    
+        <StockChartTooltip Visible="true" />
+    </TelerikStockChart>
 </div>
-
-
-@code {
-    TelerikChart ChartRef { get; set; } // you need references to the charts you need to resize
-
-    protected override void OnInitialized()
-    {
-        WindowResizeDispatcher.WindowResize += ResizeChart;
-    }
-
-    public void Dispose()
-    {
-        WindowResizeDispatcher.WindowResize -= ResizeChart;
-    }
-
-    protected async Task ResizeChart()
-    {
-        ChartRef.Refresh();
-    }
-
-    public class MyDataModel
-    {
-        public int SecondSeriesValue { get; set; }
-        public string ExtraData { get; set; }
-    }
-
-    public List<MyDataModel> modelData = new List<MyDataModel>() {
-        new MyDataModel() { SecondSeriesValue = 1, ExtraData = "first" },
-        new MyDataModel() { SecondSeriesValue = 5, ExtraData = "second" },
-        new MyDataModel() { SecondSeriesValue = 3, ExtraData = "third" },
-        new MyDataModel() { SecondSeriesValue = 2, ExtraData = "fourth" },
-     };
-
-    public List<object> simpleData = new List<object>() { 10, 2, 7, 5 };
-
-    public string[] xAxisItems = new string[] { "Q1", "Q2", "Q3", "Q4" };
-}

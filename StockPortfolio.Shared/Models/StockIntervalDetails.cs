@@ -17,7 +17,5 @@ namespace StockPortfolio.Models
         public decimal Low { get; set; }
 
         public decimal Volume { get; set; }
-
-        public string ColumnColor { get; set; } // return currentLargerThenPrev ? '#5CB85C' : '#FF6358';
     }
 }

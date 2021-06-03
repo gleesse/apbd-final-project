@@ -69,7 +69,7 @@ namespace StockPortfolio.Components.Charts
 
         void FilterIntervals(int durationInMinutes)
         {
-            IntervalFilters = IntervalFilter.GetFilters().Where(i => i.DurationInMinutes < durationInMinutes && durationInMinutes / i.DurationInMinutes <= 24).ToList();
+            IntervalFilters = IntervalFilter.GetFilters().Where(i => i.GapInMinutes < durationInMinutes && durationInMinutes / i.GapInMinutes <= 24).ToList();
             ActiveIntervalFilter = IntervalFilters.First();
             ActiveIntervalFilterChanged.InvokeAsync(ActiveIntervalFilter);
         }

@@ -1,6 +1,10 @@
+@* idk what exactly happenes but seems like telerik has some kind of problems/bugs with query routing or smth. 
+    Spent whole day searching and trying some solutions but nothing helped. Support didnt answer in a week so 
+    i had to make stock summary page that way in ajax-style instead of routing. Had better ideas about implementing *@
+
 @page "/market"
-@using StockPortfolio.Components.Charts; 
 @using StockPortfolio.Components; 
+@using StockPortfolio.Components.Search; 
 @using StockPortfolio.Models; 
 @using StockPortfolio.Services;
 
@@ -8,43 +12,15 @@
 
 
 <div class="w-full">
-    <div class="py-2 px-4 md:px-12">
-        <div class="border border-light-secondary-300">
-            <ChartNavigation @bind-ChartType="@chartType" @bind-ChartType:event="ChartTypeChanged"
-                             @bind-ActiveTimeFilter="@timeFilter" @bind-ActiveTimeFilter:event="ActiveTimeFilterChanged"
-                             @bind-ActiveIntervalFilter="@intervalFilter" @bind-ActiveIntervalFilter:event="ActiveIntervalFilterChanged"/>
-            <MainChart ChartData="@mockStockDetails" ChartType="@chartType" IntervalFilter="@intervalFilter" ChartLabelStep="3"/>
-        </div>
-    </div>
+    <MarketSearch @bind-SelectedStock="@mockStock"/>
+    <StockDetailsVisualizer StockToVisualize="@mockStock">
+        <NullDataPlaceholder>
+            <h1>Select some stock to see the details</h1>
+        </NullDataPlaceholder>
+    </StockDetailsVisualizer>
 </div>
-
+      
 @code{
-    [Inject] private StocksRepository StocksRepo { get; set; }
-    private StockChartSeriesType chartType = StockChartSeriesType.OHLC;
-    private TimeFilter timeFilter = TimeFilter.GetFilters().First();
-    private IntervalFilter intervalFilter = IntervalFilter.GetFilters().First();
-
-    List<StockIntervalDetails> mockStockDetails => GenerateMockDetails();
-
-    private List<StockIntervalDetails> GenerateMockDetails()
-    {
-        timeFilter.StartDate = DateTime.Now;
-        return StocksRepo.GenerateStockIntervals(mockStock, intervalFilter.DurationInMinutes, timeFilter.StartDate.Value.AddHours(-timeFilter.DurationInHours), timeFilter.StartDate.Value);
-    }
-
-    Stock mockStock = new Stock()
-    {
-        Symbol = "ACN",
-        Name = "Accenture plc",
-        Price = 183.07m,
-        DayChange = -0.77m,
-        ChangePercentage = -0.42m,
-        Volume = 1369124,
-        VolumeAvg = 1892150,
-        MarketCap = 116597284864,
-        IsCategorized = true,
-        PricePerEarningRatio = 24.87m,
-        IntraDayChart = new List<decimal> { 184.08m, 184.36m, 183.49m, 183.77m, 183.74m, 183.57m, 183.62m, 183.76m, 184.13m, 183.95m, 183.99m, 184.16m, 184.05m, 183.85m, 183.81m, 183.84m, 184.4m, 184.34m, 184.4m, 184.32m, 184.24m, 184.45m, 184.5m, 184.54m, 184.52m, 184.55m, 184.58m, 184.71m, 184.63m, 184.74m, 184.58m, 184.29m, 184.13m, 184.12m, 184.1m, 184.11m, 184.21m, 184.21m, 184.11m, 184.05m, 184.06m, 184m, 183.94m, 183.9m, 183.89m, 183.9m, 183.94m, 183.83m, 183.9m, 183.75m, 183.73m, 183.78m, 183.78m, 183.92m, 183.9m, 183.75m, 183.87m, 183.87m, 183.83m, 183.81m, 183.7m, 183.4m, 183.42m, 183.53m, 183.53m, 183.6m, 183.64m, 183.5m, 183.46m, 183.51m, 183.54m, 183.62m, 183.59m, 183.66m, 183.54m, 183.4m, 183.24m, 183.31m }
-    };
+    Stock mockStock = null;
 }
 

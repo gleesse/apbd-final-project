@@ -11,7 +11,7 @@ using Telerik.Blazor;
 
 namespace StockPortfolio.Components.Charts
 {
-    public partial class MainChart : ComponentBase
+    public partial class MainChart : ComponentBase,IDisposable
     {
         [Parameter] public List<StockIntervalDetails> ChartData { get; set; }
         [Parameter] public StockChartSeriesType ChartType { get; set; }
@@ -21,7 +21,7 @@ namespace StockPortfolio.Components.Charts
 
         protected override void OnInitialized()
         {
-            WindowResizeDispatcher.WindowResize += ResizeChart;
+            WindowResizeDispatcher.WindowResize += ResizeChart; //we Do need this because dispatcher is global and gonna be used somewhere else (unlike search component case)
         }
 
         public void Dispose()

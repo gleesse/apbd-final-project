@@ -27,7 +27,7 @@
         </ul> @*interval*@
 
         <div class="flex flex-row text-center mx-auto md:mx-0">
-            <TelerikDropDownList Data="@IntervalFilters" TextField="Name" ValueField="Name"
+            <TelerikDropDownList Data="@IntervalFilters" TextField="@(nameof(IntervalFilter.Name))" ValueField="@(nameof(IntervalFilter.Name))"
                                  TItem="IntervalFilter" TValue="string" Value="@ActiveIntervalFilter.Name"
                                  ValueChanged="@((string selectedFilterName) => OnIntervalFilterClick(selectedFilterName))"
                                  Width="140px" PopupWidth="135px" PopupHeight="auto">

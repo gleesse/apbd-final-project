@@ -18,7 +18,7 @@ namespace StockPortfolio.Components.Grid
         private bool LargeBrowserSize { get; set; }
         private bool SmallBrowserSize { get; set; }
 
-        private async Task DeleteHandler(GridCommandEventArgs args)
+        private async Task HandleDelete(GridCommandEventArgs args)
         {
             var stockToDelete = (Stock)args.Item;
 

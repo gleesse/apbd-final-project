@@ -125,6 +125,11 @@ namespace StockPortfolio.Services
             return categorizedStocks;
         }
 
+        public List<Stock> GetAll()
+        {
+            return GetInitialStocks();
+        }
+
         private List<Stock> GetInitialStocks()
         {
             var stockList = new List<Stock>();
@@ -148,6 +153,11 @@ namespace StockPortfolio.Services
             {
                 Symbol = "AAPL",
                 Name = "Apple Inc.",
+                Ceo = "Timothy Donald Cook",
+                Industry = "Consumer Electronics",
+                OfficialURL = "https://www.apple.com",
+                LogoImageURL = "https://s3.polygon.io/logos/aapl/logo.png",
+                FullTimeEmployees = 100000,
                 Price = 246.58m,
                 DayChange = 2.49m,
                 ChangePercentage = 1.02m,

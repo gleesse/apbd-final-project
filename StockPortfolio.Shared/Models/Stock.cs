@@ -6,6 +6,10 @@ namespace StockPortfolio.Models
     {
         public string Symbol { get; set; }
 
+        public string Ceo { get; set; }
+        public string Industry { get; set; }
+        public int FullTimeEmployees { get; set; }
+
         public string Name { get; set; }
 
         public decimal Price { get; set; }
@@ -13,6 +17,9 @@ namespace StockPortfolio.Models
         public decimal DayChange { get; set; }
 
         public decimal ChangePercentage { get; set; }
+        public bool IsDayChangePositive => DayChange >= 0;
+        public string OfficialURL { get; set; }
+        public string LogoImageURL { get; set; }
 
         public decimal Volume { get; set; }
 

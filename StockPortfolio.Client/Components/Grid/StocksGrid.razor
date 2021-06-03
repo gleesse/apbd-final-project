@@ -1,12 +1,13 @@
 ﻿@using StockPortfolio.Helpers 
 @using StockPortfolio.Models 
+@using StockPortfolio.Extensions
 
 
 <div class="row stocks-grid">
     <TelerikGrid Data="@Data" Sortable="true" SelectionMode="GridSelectionMode.Single" Pageable="true" PageSize="@PageSize">
         <GridColumns>
             <GridCommandColumn Width="55px">
-                <GridCommandButton Command="Delete" Icon="delete" Primary="true" OnClick="@DeleteHandler" />
+                <GridCommandButton Command="Delete" Icon="delete" Primary="true" OnClick="@HandleDelete" />
             </GridCommandColumn>
 
             <GridColumn Field="@nameof(Stock.Symbol)" Title="Symbol" />
@@ -37,7 +38,7 @@
                 <GridColumn Field="@nameof(Stock.MarketCap)" Title="Market Cap">
                     <Template>
                         @{ var stock = context as Stock;
-                            string formattedDecimal = DecimalFormatter.FormatDecimal(stock.MarketCap);
+                            string formattedDecimal = stock.MarketCap.ToString(true);
                             <span>@formattedDecimal</span>
                         }
                     </Template>

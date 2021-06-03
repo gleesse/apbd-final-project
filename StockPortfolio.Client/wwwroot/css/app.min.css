@@ -208,6 +208,7 @@ Correct the inability to style clickable types in iOS and Safari.
 
 button,
 [type='button'],
+[type='reset'],
 [type='submit'] {
   -webkit-appearance: button;
 }
@@ -249,6 +250,11 @@ Correct the cursor style of increment and decrement buttons in Safari.
 1. Correct the odd appearance in Chrome and Safari.
 2. Correct the outline style in Safari.
 */
+
+[type='search'] {
+  -webkit-appearance: textfield; /* 1 */
+  outline-offset: -2px; /* 2 */
+}
 
 /**
 Remove the inner padding in Chrome and Safari on macOS.
@@ -663,6 +669,11 @@ video {
   background-color: rgba(234, 234, 234, var(--tw-bg-opacity));
 }
 
+.hover\:bg-blue-100:hover{
+  --tw-bg-opacity: 1;
+  background-color: rgba(219, 234, 254, var(--tw-bg-opacity));
+}
+
 .bg-gradient-to-r{
   background-image: linear-gradient(to right, var(--tw-gradient-stops));
 }
@@ -719,6 +730,16 @@ video {
 .border-black{
   --tw-border-opacity: 1;
   border-color: rgba(0, 0, 0, var(--tw-border-opacity));
+}
+
+.border-red-400{
+  --tw-border-opacity: 1;
+  border-color: rgba(248, 113, 113, var(--tw-border-opacity));
+}
+
+.border-green-400{
+  --tw-border-opacity: 1;
+  border-color: rgba(52, 211, 153, var(--tw-border-opacity));
 }
 
 .border-light-secondary-300{
@@ -954,8 +975,16 @@ video {
   font-weight: 500;
 }
 
+.font-semibold{
+  font-weight: 600;
+}
+
 .font-bold{
   font-weight: 700;
+}
+
+.font-extrabold{
+  font-weight: 800;
 }
 
 .font-black{
@@ -1042,6 +1071,10 @@ video {
   margin: 1rem;
 }
 
+.m-6{
+  margin: 1.5rem;
+}
+
 .m-auto{
   margin: auto;
 }
@@ -1090,12 +1123,20 @@ video {
   margin-top: 0px;
 }
 
+.mr-0{
+  margin-right: 0px;
+}
+
 .ml-0{
   margin-left: 0px;
 }
 
 .mr-1{
   margin-right: 0.25rem;
+}
+
+.mb-1{
+  margin-bottom: 0.25rem;
 }
 
 .mb-3{
@@ -1108,6 +1149,10 @@ video {
 
 .mt-6{
   margin-top: 1.5rem;
+}
+
+.mb-8{
+  margin-bottom: 2rem;
 }
 
 .mt-10{
@@ -1259,6 +1304,21 @@ video {
 .placeholder-green-300::placeholder{
   --tw-placeholder-opacity: 1;
   color: rgba(110, 231, 183, var(--tw-placeholder-opacity));
+}
+
+.placeholder-blue-200::-moz-placeholder{
+  --tw-placeholder-opacity: 1;
+  color: rgba(191, 219, 254, var(--tw-placeholder-opacity));
+}
+
+.placeholder-blue-200:-ms-input-placeholder{
+  --tw-placeholder-opacity: 1;
+  color: rgba(191, 219, 254, var(--tw-placeholder-opacity));
+}
+
+.placeholder-blue-200::placeholder{
+  --tw-placeholder-opacity: 1;
+  color: rgba(191, 219, 254, var(--tw-placeholder-opacity));
 }
 
 .placeholder-opacity-60::-moz-placeholder{
@@ -1493,6 +1553,11 @@ video {
 .text-light-tint{
   --tw-text-opacity: 1;
   color: rgba(225, 190, 231, var(--tw-text-opacity));
+}
+
+.text-light-primary-300{
+  --tw-text-opacity: 1;
+  color: rgba(57, 62, 70, var(--tw-text-opacity));
 }
 
 .text-light-secondary-100{
@@ -2061,6 +2126,21 @@ video {
     font-weight: 700;
   }
 
+  .sm\:text-xl{
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+  }
+
+  .sm\:text-2xl{
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+
+  .sm\:text-4xl{
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+  }
+
   .sm\:shadow-md{
     --tw-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
@@ -2119,6 +2199,10 @@ video {
     }
   }
 
+  .md\:block{
+    display: block;
+  }
+
   .md\:flex-row{
     flex-direction: row;
   }
@@ -2129,6 +2213,16 @@ video {
 
   .md\:font-bold{
     font-weight: 700;
+  }
+
+  .md\:text-3xl{
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+  }
+
+  .md\:text-6xl{
+    font-size: 3.75rem;
+    line-height: 1;
   }
 
   .md\:mx-0{
@@ -2190,6 +2284,11 @@ video {
     font-weight: 700;
   }
 
+  .lg\:text-2xl{
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+
   .lg\:shadow-md{
     --tw-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
@@ -2209,6 +2308,10 @@ video {
 }
 
 @media (min-width: 1280px){
+  .xl\:block{
+    display: block;
+  }
+
   .xl\:text-5xl{
     font-size: 3rem;
     line-height: 1;

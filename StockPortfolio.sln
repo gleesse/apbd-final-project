@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StockPortfolio.Client", "St
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "StockPortfolio.Shared", "StockPortfolio.Shared\StockPortfolio.Shared.shproj", "{E2AC1960-FA1B-4E0F-8955-5DE264110B40}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockPortfolio.Server", "StockPortfolio.Server\StockPortfolio.Server.csproj", "{CC4360A6-5FD5-4F24-98D0-2C547141027A}"
-EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		StockPortfolio.Shared\StockPortfolio.Shared.projitems*{e2ac1960-fa1b-4e0f-8955-5de264110b40}*SharedItemsImports = 13
@@ -23,10 +21,6 @@ Global
 		{FB5EE3B9-C285-47BE-9796-FEF86E78FD7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FB5EE3B9-C285-47BE-9796-FEF86E78FD7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FB5EE3B9-C285-47BE-9796-FEF86E78FD7D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CC4360A6-5FD5-4F24-98D0-2C547141027A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CC4360A6-5FD5-4F24-98D0-2C547141027A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CC4360A6-5FD5-4F24-98D0-2C547141027A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CC4360A6-5FD5-4F24-98D0-2C547141027A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

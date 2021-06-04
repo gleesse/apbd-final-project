@@ -4,17 +4,13 @@
   #### main layout
     - [x] header
     - [x] footer 
-  #### Components
-    - [x] pie chart
-    - [x] main chart 
-    - [x] stocks grid (portfolio)
   #### Pages
     - [x] sign in page
     - [x] sign up page
     - [x] reset password page
     - [x] dashboard page
-    - [ ] market page
-    - [ ] settings page
+    - [x] market page
+    - [x] settings page
     - [ ] profile page
     - [ ] loading page
 

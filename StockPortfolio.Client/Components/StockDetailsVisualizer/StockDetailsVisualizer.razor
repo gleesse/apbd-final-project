@@ -1,0 +1,21 @@
+﻿@using StockPortfolio.Components.Charts
+@using StockPortfolio.Components.StockDetailsVisualizer
+
+
+@if (StockToVisualize is null)
+{
+    @NullDataPlaceholder
+}
+else
+{
+    <div class="py-2 px-4 md:px-12">
+        <StockSummary SelectedStock="@StockToVisualize" ShowLogo="@ShowLogo" />
+        
+        <div class="border border-light-secondary-300"> 
+            <ChartNavigation @bind-ChartType="@chartType"
+                             @bind-ActiveTimeFilter="@timeFilter"
+                             @bind-ActiveIntervalFilter="@intervalFilter"/>
+            <MainChart ChartData="@StockDetails" ChartType="@chartType" IntervalFilter="@intervalFilter" ChartLabelStep="4" />
+        </div>
+    </div>
+}

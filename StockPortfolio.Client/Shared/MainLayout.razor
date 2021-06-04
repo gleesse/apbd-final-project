@@ -3,12 +3,23 @@
 @inject DropdownNavStateContainer DropdownNavState
 @layout TelerikLayout
 
+<style>
+    .body-container{
+        display: flex;
+        text-align: center;
+        vertical-align: middle;
+        justify-items: center;
+        min-height: calc(100vh - 10rem - 1.5rem);  @* browser height - header height - footer height *@
+    }
+</style>
+
 <div>
     <Navbar/>
     <DropdownNav/>
 
-
-    <div class="flex text-3xl text-center align-middle justify-items-center bg-light-background">
+    <div class="text-3xl bg-light-background body-container">
         @Body
     </div>
+    
+    <Footer/>
 </div>

@@ -1,0 +1,135 @@
+﻿@using StockPortfolio.Models
+@using StockPortfolio.Extensions
+
+<style>
+    .summary-container {
+        margin-bottom: 1.5rem;
+    }
+
+    p {
+        font-weight: 700;
+    }
+
+    .summary-wrap {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-end;
+    }
+
+    .summary-block {
+        display: flex;
+        flex-direction: column;
+        text-align: left;
+        justify-content: space-between;
+        margin: 1.5rem;
+        margin-bottom: 0.25rem;
+    }
+
+    .inline-wrap {
+        display: inline-flex;
+        align-items: flex-end;
+        gap: 1.5rem;
+    }
+
+    .logo-wrap {
+        width: 128px;
+        height: 128px;
+        display: none;
+        border-width: 3px;
+        border-color: #93C5FD;
+    }
+
+        .logo-wrap:hover {
+            border-color: #3B82F6;
+        }
+
+    .main-info {
+        display: flex;
+        flex-direction: row;
+        float: left;
+        grid-area: main-info;
+    }
+
+    .extra-info {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        grid-area: extra-info;
+    }
+
+    .lightshadow {
+        text-shadow: 0px 0px 3px rgba(117, 117, 117, 0.12);
+    }
+
+    @@media screen and (max-width: 1536px) {
+        .summary-wrap {
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-template-rows: 1fr 1fr;
+            grid-template-areas:
+                "main-info"
+                "extra-info";
+        }
+    }
+
+    @@media screen and (min-width: 768px) {
+        .logo-wrap {
+            display: block;
+        }
+    }
+
+    @@media screen and (max-width: 768px) {
+        .extra-info {
+            flex-direction: column;
+            align-items: left;
+        }
+    }
+</style>
+
+<div class="summary-container lightshadow">
+    <div class="summary-wrap font-roboto border-b-4 @borderColor">
+        <div class="main-info">
+            @if (ShowLogo && SelectedStock.LogoImageURL != null && SelectedStock.LogoImageURL.Length > 0)
+            {
+                <div class="logo-wrap rounded-3xl m-6 mb-1 mr-0">
+                    <a href="@SelectedStock.OfficialURL" target="_blank" title="official site">
+                        <img class="rounded-3xl" src="@SelectedStock.LogoImageURL" alt="company logo" />
+                    </a>
+                </div>
+            }
+            <div class="summary-block">
+                <div class="mb-8">
+                    <i class="font-semibold text-xl">@($"{SelectedStock.Name} ({SelectedStock.Symbol})")</i>
+                </div>
+                <div class="inline-wrap">
+                    <strong class="font-extrabold text-2xl sm:text-4xl md:text-6xl">$@SelectedStock.Price.ToString().Replace(',', '.')</strong>
+                    <p class="text-@summaryColor text-xl sm:text-2xl md:text-3xl">@SelectedStock.DayChange.ToString(false, true).Replace(',', '.')</p>
+                    <p class="text-@summaryColor text-xl sm:text-2xl md:text-3xl">(@SelectedStock.ChangePercentage.ToString(false, true).Replace(',', '.')%)</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="extra-info">
+            <div class="summary-block text-base sm:text-xl lg:text-2xl">
+                <span class="inline-wrap">Market Cap:<p>@SelectedStock.MarketCap.ToString(true)</p></span>
+                <span class="inline-wrap">Volume avg:<p>@SelectedStock.VolumeAvg</p></span>
+                <span class="inline-wrap">PE index:<p>@SelectedStock.PricePerEarningRatio</p></span>
+            </div>
+
+            <div class="summary-block text-base sm:text-xl lg:text-2xl">
+                <span class="inline-wrap">Ceo:<p>@SelectedStock.Ceo</p></span>
+                <span class="inline-wrap">Industry:<p>@SelectedStock.Industry</p></span>
+                <span class="inline-wrap">FullTimeEmployees:<p>@SelectedStock.FullTimeEmployees</p></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code{
+    [Parameter] public Stock SelectedStock { get; set; }
+    [Parameter] public bool ShowLogo { get; set; } = true;
+    private string summaryColor => SelectedStock.IsDayChangePositive ? "green-400" : "red-400";
+    private string borderColor => SelectedStock.IsDayChangePositive ? "border-green-400" : "border-red-400"; //idk why but concatenation doesnt work with border (with text- everything goes well)
+}

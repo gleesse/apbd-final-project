@@ -6,9 +6,9 @@ using StockPortfolio.Services;
 using Microsoft.AspNetCore.Components;
 using Telerik.Blazor;
 
-namespace StockPortfolio.Components
+namespace StockPortfolio.Components.StockDetailsVisualizer
 {
-    public partial class StockDetailsVisualizer : ComponentBase
+    public partial class StockDetailsVisualizer
     {
         [Inject] private StocksRepository StocksRepo { get; set; }
         [Parameter] public bool ShowLogo { get; set; } = true;

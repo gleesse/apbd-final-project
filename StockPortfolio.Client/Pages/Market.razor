@@ -4,6 +4,7 @@
 
 @page "/market"
 @using StockPortfolio.Components; 
+@using StockPortfolio.Components.StockDetailsVisualizer; 
 @using StockPortfolio.Components.Search; 
 @using StockPortfolio.Models; 
 @using StockPortfolio.Services;
@@ -15,7 +16,7 @@
     <MarketSearch @bind-SelectedStock="@mockStock"/>
     <StockDetailsVisualizer StockToVisualize="@mockStock">
         <NullDataPlaceholder>
-            <h1>Select some stock to see the details</h1>
+            <i class="text-gray-400 text-base">Select some stock to see the details</i>
         </NullDataPlaceholder>
     </StockDetailsVisualizer>
 </div>

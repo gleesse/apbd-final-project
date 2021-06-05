@@ -1,9 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using StockPortfolio.Models;
+using System.Collections.Generic;
 
 namespace StockPortfolio.Models
 {
     public class Stock
     {
+        public Stock()
+        {
+            User_Stocks = new HashSet<User_Stock>();
+        }
+
         public string Symbol { get; set; }
 
         public string Name { get; set; }
@@ -24,6 +30,6 @@ namespace StockPortfolio.Models
 
         public bool IsCategorized { get; set; }
 
-        public IEnumerable<decimal> IntraDayChart { get; set; }
+        public ICollection<User_Stock> User_Stocks { get; set; }
     }
 }

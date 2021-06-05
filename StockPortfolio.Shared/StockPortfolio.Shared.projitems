@@ -14,9 +14,14 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\ChartType.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Interval.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\IntervalFilter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\LoginRequest.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\RegisterRequest.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Stock.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\StockIntervalDetails.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\TimeFilter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\User.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\UserCredentials.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\User_Stock.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\StocksRepository.cs" />
   </ItemGroup>
 </Project>

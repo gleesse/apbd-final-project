@@ -8,6 +8,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using StockPortfolio.Server.Contexts;
+using StockPortfolio.Server.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,6 +35,8 @@ namespace StockPortfolio.Server
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "StockPortfolio.Server", Version = "v1" });
             });
+
+            services.AddScoped<IStocksRepository, StocksRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

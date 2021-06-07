@@ -12,6 +12,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\Constants.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\DecimalFormatter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\ChartType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\EntityBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Interval.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\IntervalFilter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\LoginRequest.cs" />

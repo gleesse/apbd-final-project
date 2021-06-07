@@ -4,7 +4,7 @@ using System.Text;
 
 namespace StockPortfolio.Models
 {
-    public class User_Stock
+    public class User_Stock : EntityBase
     {
         public int UserID { get; set; }
         public User UserReference { get; set; }

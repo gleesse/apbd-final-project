@@ -4,7 +4,7 @@ using System.Text;
 
 namespace StockPortfolio.Models
 {
-    public class RegisterRequest
+    public class EntityBase
     {
     }
 }

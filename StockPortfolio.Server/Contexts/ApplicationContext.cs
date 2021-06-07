@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using StockPortfolio.Models;
+using StockPortfolio.Server.EfConfigurations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,9 +12,9 @@ namespace StockPortfolio.Server.Contexts
     public class ApplicationContext : DbContext
     {
         public DbSet<User> Users { get; set; }
-        public DbSet<User> Stocks { get; set; }
-        public DbSet<User> User_Stocks { get; set; }
-        public DbSet<User> User_Credentials { get; set; }
+        public DbSet<Stock> Stocks { get; set; }
+        public DbSet<User_Stock> User_Stocks { get; set; }
+        public DbSet<UserCredentials> User_Credentials { get; set; }
 
         private readonly IConfiguration _configuration;
 
@@ -31,6 +32,10 @@ namespace StockPortfolio.Server.Contexts
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            modelBuilder.ApplyConfiguration(new UserEntityConfiguration());
+            modelBuilder.ApplyConfiguration(new StockEntityConfiguration());
+            modelBuilder.ApplyConfiguration(new User_StockEntityConfiguration());
+            modelBuilder.ApplyConfiguration(new UserCredentialsEntityConfiguration());
         }
     }
 }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace StockPortfolio.Models
 {
-    class LoginRequest
+    public class LoginRequest
     {
     }
 }

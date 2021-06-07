@@ -4,8 +4,13 @@ using System.Text;
 
 namespace StockPortfolio.Models
 {
-    public class User
+    public class User : EntityBase
     {
+        public User()
+        {
+            User_Stocks = new HashSet<User_Stock>();
+        }
+
         public int UserID { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }

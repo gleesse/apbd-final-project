@@ -4,7 +4,7 @@ using System.Text;
 
 namespace StockPortfolio.Models
 {
-    public class UserCredentials
+    public class UserCredentials : EntityBase
     {
         public int UserCredentialsID { get; set; }
         public string Login { get; set; }

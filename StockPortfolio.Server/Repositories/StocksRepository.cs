@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using StockPortfolio.Models;
 using StockPortfolio.Server.Contexts;
+using StockPortfolio.Server.Extensions;
 
 namespace StockPortfolio.Server.Repositories
 {
@@ -20,6 +21,7 @@ namespace StockPortfolio.Server.Repositories
         public async Task<Stock> AddAsync(Stock entity)
         {
             if (entity is null) return null;
+            entity.LastUpdateDate = DateTime.Now;
             var createdEntityEntry = await _dbContext.Set<Stock>().AddAsync(entity);
             return createdEntityEntry.Entity;
         }
@@ -48,15 +50,16 @@ namespace StockPortfolio.Server.Repositories
                 return null;
             }
             var record = await _dbContext.Set<Stock>().FindAsync(id);
-            if (record is null) return null;
-            _dbContext.Entry(entity).State = EntityState.Modified;
-            return entity;
+            if (record is null)
+            {
+                return null;
+            }
+            entity.LastUpdateDate = DateTime.Now;
+            _dbContext.Entry(record).CurrentValues.SetValues(entity);
+            return record;
         }
 
-        public async Task SaveAsync()
-        {
-            await _dbContext.SaveChangesAsync();
-        }
+        public async Task SaveAsync() => await _dbContext.SaveChangesAsync();
     }
 
     public interface IStocksRepository : IRepository<Stock>

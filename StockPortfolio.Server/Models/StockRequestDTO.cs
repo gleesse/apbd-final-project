@@ -1,11 +1,12 @@
-﻿using System;
+﻿using StockPortfolio.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace StockPortfolio.Server.Models
 {
-    public class StockPostRequestModel
+    public class StockRequestDTO
     {
         public string Symbol { get; set; }
         public string Name { get; set; }
@@ -18,8 +19,7 @@ namespace StockPortfolio.Server.Models
         public decimal DayChange { get; set; }
         public decimal ChangePercentage { get; set; }
         public decimal VolumeAvg { get; set; }
-        public decimal MarketCap { get; set; }
         public decimal PricePerEarningRatio { get; set; }
-        public int[] UsersOwnersIDs { get; set; }
+        public DateTime? LastUpdateDate { get; set; }
     }
 }

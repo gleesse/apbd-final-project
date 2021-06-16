@@ -26,7 +26,7 @@ namespace StockPortfolio.Server.Contexts
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseSqlServer(_configuration["Application:ConnectionString"]);
+            optionsBuilder.UseSqlServer(_configuration["Server:ConnectionString"]);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

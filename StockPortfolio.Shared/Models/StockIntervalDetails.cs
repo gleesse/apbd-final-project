@@ -4,7 +4,7 @@ using System.Text;
 
 namespace StockPortfolio.Models
 {
-    public class StockIntervalDetails
+    public class StockIntervalDetails //Daily Open/Close stock api
     {
         public DateTime Date { get; set; }
 

@@ -17,6 +17,7 @@ namespace StockPortfolio.Server.EfConfigurations
             builder.Property(e => e.FirstName).HasMaxLength(100);
             builder.Property(e => e.LastName).HasMaxLength(100);
             builder.Property(e => e.Email).IsRequired().HasMaxLength(100);
+            builder.Property(e => e.IsAdmin).IsRequired().HasDefaultValue(false);
 
             builder.Property(e => e.RefreshToken).HasMaxLength(64);
             builder.Property(e => e.RefreshTokenExpirationDate);

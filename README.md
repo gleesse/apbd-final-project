@@ -15,8 +15,8 @@
     - [ ] loading page
 
 - ### API - 'back-end' branch
-    - [ ] auth
-    - [ ] registration
+    - [x] auth
+    - [x] registration
     - [ ] polygon.io api provider
     - [ ] crud operations for each entity
 -----

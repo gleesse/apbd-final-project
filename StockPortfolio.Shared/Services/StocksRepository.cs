@@ -124,9 +124,7 @@ namespace StockPortfolio.Services
                 Price = 76.61m,
                 DayChange = -1.18m,
                 ChangePercentage = -1.52m,
-                VolumeAvg = 837114,
-                MarketCap = 5174814208,
-                PricePerEarningRatio = 25.94m
+                MarketCap = 5174814208
             });
 
             return stockList;

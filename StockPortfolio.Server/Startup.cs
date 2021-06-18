@@ -11,6 +11,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using StockPortfolio.Server.Contexts;
 using StockPortfolio.Server.Repositories;
+using StockPortfolio.Server.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -56,6 +57,7 @@ namespace StockPortfolio.Server
             services.AddDbContext<ApplicationContext>();
             services.AddScoped<IStocksRepository, StocksRepository>();
             services.AddScoped<IUsersRepository, UsersRepository>();
+            services.AddScoped<IStocksInfoService, StockMarketApiProviderService>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

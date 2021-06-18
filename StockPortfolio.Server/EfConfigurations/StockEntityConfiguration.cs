@@ -24,9 +24,7 @@ namespace StockPortfolio.Server.EfConfigurations
             builder.Property(e => e.FullTimeEmployees);
             builder.Property(e => e.DayChange);
             builder.Property(e => e.ChangePercentage);
-            builder.Property(e => e.VolumeAvg);
             builder.Property(e => e.MarketCap);
-            builder.Property(e => e.PricePerEarningRatio);
         }
     }
 }

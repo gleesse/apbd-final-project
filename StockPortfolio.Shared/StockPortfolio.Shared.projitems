@@ -11,12 +11,14 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\Constants.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\DecimalFormatter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\StockContractResolver.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\ChartType.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\EntityBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Interval.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\IntervalFilter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\LoginRequest.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\RegisterRequest.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\SearchMatchStockModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Stock.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\StockIntervalDetails.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\TimeFilter.cs" />

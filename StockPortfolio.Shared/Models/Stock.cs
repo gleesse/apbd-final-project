@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace StockPortfolio.Models
@@ -11,19 +12,17 @@ namespace StockPortfolio.Models
         }
 
         public int StockID { get; set; }
-        public string Symbol { get; set; } //ticker Details
-        public string Name { get; set; } //ticker Details
-        public string Ceo { get; set; } //ticker Details
-        public string Industry { get; set; } //ticker Details
-        public string OfficialURL { get; set; } //ticker Details
-        public string LogoImageURL { get; set; } //ticker Details
-        public int FullTimeEmployees { get; set; } //ticker Details
+        public string Symbol { get; set; }
+        public string Name { get; set; }
+        public string Ceo { get; set; }
+        public string Industry { get; set; }
+        public string OfficialURL { get; set; }
+        public string LogoImageURL { get; set; }
+        public int FullTimeEmployees { get; set; }
         public decimal Price { get; set; }
         public decimal DayChange { get; set; }
         public decimal ChangePercentage { get; set; }
-        public decimal VolumeAvg { get; set; }
-        public decimal MarketCap { get; set; } //ticker Details
-        public decimal? PricePerEarningRatio { get; set; }
+        public decimal MarketCap { get; set; }
         public DateTime? LastUpdateDate { get; set; }
         
 

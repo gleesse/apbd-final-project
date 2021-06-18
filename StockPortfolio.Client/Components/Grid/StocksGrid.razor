@@ -38,9 +38,7 @@
                 <Template>
                     @{ var stock = context as Stock;
                         <span>
-                            @(stock.PricePerEarningRatio != null
-                ? DecimalFormatter.FormatDecimal(stock.PricePerEarningRatio.Value)
-                : null)
+                            @(stock.Ceo)
                         </span> }
                 </Template>
                 </GridColumn>

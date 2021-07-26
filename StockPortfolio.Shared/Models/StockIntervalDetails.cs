@@ -4,7 +4,7 @@ using System.Text;
 
 namespace StockPortfolio.Models
 {
-    public class StockIntervalDetails
+    public class StockIntervalDetails //Daily Open/Close stock api
     {
         public DateTime Date { get; set; }
 
@@ -17,7 +17,5 @@ namespace StockPortfolio.Models
         public decimal Low { get; set; }
 
         public decimal Volume { get; set; }
-
-        public string ColumnColor { get; set; } // return currentLargerThenPrev ? '#5CB85C' : '#FF6358';
     }
 }

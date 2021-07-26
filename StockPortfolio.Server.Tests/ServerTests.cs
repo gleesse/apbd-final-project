@@ -1,9 +1,13 @@
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Moq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using NUnit.Framework;
 using StockPortfolio.Helpers;
 using StockPortfolio.Models;
+using StockPortfolio.Server.Contexts;
+using StockPortfolio.Server.Repositories;
 using StockPortfolio.Server.Services;
 using System;
 using System.Net.Http;

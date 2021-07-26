@@ -56,8 +56,9 @@ namespace StockPortfolio.Server
 
             services.AddDbContext<ApplicationContext>();
             services.AddScoped<IStocksRepository, StocksRepository>();
-            services.AddScoped<IUsersRepository, UsersRepository>();
+            services.AddScoped<IAccountsRepository, AccountsRepository>();
             services.AddScoped<IStocksInfoService, StockMarketApiProviderService>();
+            services.AddScoped<IUserRepository, UserRepository>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

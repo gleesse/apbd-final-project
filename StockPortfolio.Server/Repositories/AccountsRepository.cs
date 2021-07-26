@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace StockPortfolio.Server.Repositories
 {
-    public class UsersRepository : IUsersRepository
+    public class AccountsRepository : IAccountsRepository
     {
         private readonly ApplicationContext _dbContext;
-        public UsersRepository(ApplicationContext dbContext)
+        public AccountsRepository(ApplicationContext dbContext)
         {
             _dbContext = dbContext;
         }
@@ -62,7 +62,7 @@ namespace StockPortfolio.Server.Repositories
         #endregion
     }
 
-    public interface IUsersRepository : IRepository<User>
+    public interface IAccountsRepository : IRepository<User>
     {
         public Task<User> GetAsync(string login);
     }

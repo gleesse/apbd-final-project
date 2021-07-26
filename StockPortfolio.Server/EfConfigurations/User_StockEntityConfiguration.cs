@@ -22,7 +22,7 @@ namespace StockPortfolio.Server.EfConfigurations
                 .HasConstraintName("User_Stock_User");
 
             builder
-                .HasOne(e => e.UserReference)
+                .HasOne(e => e.StockReference)
                 .WithMany(stock => stock.User_Stocks)
                 .HasForeignKey(stock => stock.StockID)
                 .HasConstraintName("User_Stock_Stock");

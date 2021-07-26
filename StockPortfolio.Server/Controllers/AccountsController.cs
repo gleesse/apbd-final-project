@@ -20,7 +20,7 @@ namespace StockPortfolio.Server.Controllers
     public class AccountsController : ControllerBase
     {
         private readonly IConfiguration _config;
-        private readonly IUsersRepository _usersRepository;
+        private readonly IAccountsRepository _usersRepository;
 
         #region Configs
 
@@ -32,7 +32,7 @@ namespace StockPortfolio.Server.Controllers
         private int SaltLength => int.Parse(_config["PasswordEncryptSpecifications:SaltLength"]);
         #endregion
 
-        public AccountsController(IConfiguration config, IUsersRepository usersRepository)
+        public AccountsController(IConfiguration config, IAccountsRepository usersRepository)
         {
             _config = config;
             _usersRepository = usersRepository;
@@ -94,6 +94,7 @@ namespace StockPortfolio.Server.Controllers
             var role = user.IsAdmin ? "Admin" : "User";
             var userClaims = new[]
             {
+                new Claim("UserID", user.UserID.ToString()),
                 new Claim(ClaimTypes.Name, user.Credentials.Login),
                 new Claim(ClaimTypes.Role, role)
             };
